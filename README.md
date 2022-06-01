@@ -1,4 +1,4 @@
-# pokemon-game
+# Pokemon Game
 
 ## Project setup
 ```
@@ -22,3 +22,6 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Web on production: 
+https://agl-pokemon-game.netlify.app/
