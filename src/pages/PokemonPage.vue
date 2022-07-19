@@ -4,11 +4,20 @@
     <div v-else>
       <h1>¿Quién es este pokémon?</h1>
       <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-      <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer" />
-
+      <PokemonOptions v-if="!optionsClicked" :pokemons="pokemonArr" @selection="checkAnswer" />
       <template v-if="showAnswer" class="fade-in">
         <h2>{{message}}</h2>
-        <button class="reset-button" @click="resetGame">Reiniciar Juego</button>
+        <div class="pokemonCounter" v-if="enableCounter">
+          <div>
+            <span v-if="hitsCount > 0" class="hits-span">
+              <b>{{hitsCount}}</b><span>Aciertos</span>
+            </span>
+            <span v-if="failsCount > 0" class="fails-span">
+              <b>{{failsCount}}</b><span>Fallos</span>
+            </span>
+          </div>
+        </div>
+        <button class="reset-button" @click="resetGame">Siguiente</button>
       </template>
     </div>
   </div>
@@ -31,7 +40,11 @@ export default {
       pokemon: null,
       showPokemon: false,
       showAnswer: false,
-      message: ""
+      message: "",
+      hitsCount: 0,
+      failsCount: 0,
+      optionsClicked: false,
+      enableCounter: false
     };
   },
   methods: {
@@ -43,17 +56,23 @@ export default {
     checkAnswer(pokemonId) {
       this.showPokemon = true;
       this.showAnswer = true;
+      this.optionsClicked = true;
+      this.enableCounter = true;
       if (pokemonId === this.pokemon.id) {
         this.message = `Correcto, ${this.pokemon.name}`;
+        this.hitsCount += 1;
       } else {
         this.message = `Oops, era ${this.pokemon.name}`;
+        this.failsCount += 1;
       }
     },
     resetGame() {
+      this.enableCounter = true;
       this.showPokemon = false;
       this.showAnswer = false;
       this.pokemonArr = [];
       this.pokemon = null;
+      this.optionsClicked = false;
       this.mixPokemonArray();
     }
   },
@@ -72,5 +91,44 @@ export default {
   font-family: "Montserrat", sans-serif;
   border-radius: 5px;
   margin-bottom: 50px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.hits-span b {
+  color: #199b19;
+}
+
+.fails-span b {
+  color: red;
+}
+
+.happyFace img,
+.sadFace img {
+  width: 100px;
+}
+
+.pokemonCounter {
+  padding: 20px;
+  border-radius: 40px;
+}
+
+.pokemonCounter > div {
+  border-radius: 22px;
+  padding: 20px px;
+  width: auto;
+  text-align: center;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.pokemonCounter span {
+  font-size: 25px;
+  padding: 10px;
+}
+
+.pokemonCounter span b {
+  font-size: 50px;
+  margin-right: 4px;
 }
 </style>
