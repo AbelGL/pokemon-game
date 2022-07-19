@@ -28,6 +28,7 @@ export default {
 ul {
   list-style-type: none;
   padding: 0;
+  margin-top: 50px;
 }
 li {
   background-color: white;
@@ -48,25 +49,24 @@ li:hover {
 
 .option-item {
   box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
-  background-color: transparent;
   border: 2px solid #35495e;
-  border-radius: 0.6em;
-  color: #35495e;
+  border-radius: 21px;
   cursor: pointer;
   display: flex;
   align-self: center;
   font-size: 0.8rem;
   line-height: 1;
   margin: 20px;
-  padding: 10px 10px;
+  padding: 9px 30px;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
   font-weight: 700;
   transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+  background-color: #000000b3;
+  display: inline;
+  color: #fff;
 }
 
 .option-item {
