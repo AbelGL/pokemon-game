@@ -26,7 +26,7 @@ export default {
   max-width: 1200px;
 }
 html {
-  background: url(../src/assets/pokemon-background.jpg)
+  background: url(../src/assets/pokemon-background.png)
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
