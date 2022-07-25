@@ -59,7 +59,8 @@ export default {
       hitsCount: 0,
       failsCount: 0,
       optionsClicked: false,
-      enableCounter: false
+      enableCounter: false,
+      LIMIT: 100
     };
   },
   methods: {
@@ -80,7 +81,7 @@ export default {
         this.message = `Oops, era ${this.pokemon.name}`;
         this.failsCount += 1;
       }
-      if (this.hitsCount === 4) {
+      if (this.hitsCount === this.LIMIT) {
         this.endGame = true;
       }
     },
