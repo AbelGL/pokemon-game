@@ -1,24 +1,38 @@
 <template>
   <div>
-    <h1 v-if="!pokemon">Espere porfavor...</h1>
-    <div v-else>
-      <h1>¿Quién es este pokémon?</h1>
-      <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-      <PokemonOptions v-if="!optionsClicked" :pokemons="pokemonArr" @selection="checkAnswer" />
-      <template v-if="showAnswer" class="fade-in">
-        <h2>{{message}}</h2>
-        <div class="pokemonCounter" v-if="enableCounter">
-          <div>
-            <span v-if="hitsCount > 0" class="hits-span">
-              <b>{{hitsCount}}</b><span>Aciertos</span>
-            </span>
-            <span v-if="failsCount > 0" class="fails-span">
-              <b>{{failsCount}}</b><span>Fallos</span>
-            </span>
-          </div>
+    <div class="end-game-container" v-if="endGame">
+      <h1>Enhorabuena has ganado el juego!</h1>
+      <button
+        class="reset-button end-game"
+        @click="resetGame"
+        style="margin-left: 1rem;"
+      >Reiniciar juego</button>
+    </div>
+    <div class="pokemon-game-container" v-else>
+      <h1 v-if="!pokemon">Espere porfavor...</h1>
+      <div v-else>
+        <div v-if="!endGame">
+          <h1>¿Quién es este pokémon?</h1>
+          <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
+          <PokemonOptions v-if="!optionsClicked" :pokemons="pokemonArr" @selection="checkAnswer" />
         </div>
-        <button class="reset-button" @click="resetGame">Siguiente</button>
-      </template>
+        <template v-if="!endGame" class="fade-in">
+          <h2 v-if="showAnswer">{{message}}</h2>
+          <div class="pokemonCounter" v-if="enableCounter">
+            <div>
+              <span v-if="hitsCount > 0" class="hits-span">
+                <b>{{hitsCount}}</b>
+                <span>Aciertos</span>
+              </span>
+              <span v-if="failsCount > 0" class="fails-span">
+                <b>{{failsCount}}</b>
+                <span>Fallos</span>
+              </span>
+            </div>
+          </div>
+          <button v-if="!endGame && optionsClicked" class="reset-button" @click="nextGame">Siguiente</button>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +51,7 @@ export default {
   data() {
     return {
       pokemonArr: [],
+      endGame: false,
       pokemon: null,
       showPokemon: false,
       showAnswer: false,
@@ -65,6 +80,18 @@ export default {
         this.message = `Oops, era ${this.pokemon.name}`;
         this.failsCount += 1;
       }
+      if (this.hitsCount === 4) {
+        this.endGame = true;
+      }
+    },
+    nextGame() {
+      this.showPokemon = false;
+      this.showAnswer = false;
+      this.pokemonArr = [];
+      this.pokemon = null;
+      this.optionsClicked = false;
+      this.enableCounter = true;
+      this.mixPokemonArray();
     },
     resetGame() {
       this.enableCounter = true;
@@ -73,6 +100,9 @@ export default {
       this.pokemonArr = [];
       this.pokemon = null;
       this.optionsClicked = false;
+      this.hitsCount = 0;
+      this.failsCount = 0;
+      this.endGame = false;
       this.mixPokemonArray();
     }
   },
@@ -93,6 +123,10 @@ export default {
   margin-bottom: 50px;
   margin-top: 30px;
   cursor: pointer;
+}
+
+.end-game {
+  background-color: #ed0051;
 }
 
 .hits-span b {
