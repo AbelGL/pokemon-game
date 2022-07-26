@@ -211,6 +211,9 @@ h2 {
 }
 
 @media (max-width: 1023px) {
+  .pokemon-game-container h2 {
+    margin-bottom: 20px;
+  }
   .pokemon-game-container p {
     max-width: initial;
     padding: 0 15px;
