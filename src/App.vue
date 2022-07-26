@@ -33,4 +33,18 @@ html {
   -o-background-size: cover;
   background-size: cover;
 }
+
+@media (max-width: 1023px) {
+  html {
+    background: url(http://localhost:8080/img/pokemon-background.d86d2d1c.png)
+      no-repeat 22% 50% fixed;
+    background-size: cover;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 45px;
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+}
 </style>

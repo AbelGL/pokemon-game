@@ -48,4 +48,10 @@ img {
 .hidden-pokemon {
   filter: brightness(0);
 }
+@media (max-width: 1023px) {
+  .pokemon-container,
+  .pokemon-container img {
+    height: 260px;
+  }
+}
 </style>

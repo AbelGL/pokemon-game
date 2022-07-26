@@ -81,4 +81,16 @@ li:hover {
 .option-item:hover {
   box-shadow: 0 0 40px 40px #35495e inset;
 }
+@media (max-width: 1023px) {
+  ul {
+    margin-top: 20px;
+  }
+  .option-item {
+    display: inline-block;
+    margin: 7px;
+    padding: 15px;
+    width: 33%;
+    font-size: 0.6rem;
+  }
+}
 </style>

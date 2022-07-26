@@ -202,4 +202,24 @@ export default {
   font-size: 50px;
   margin-right: 4px;
 }
+
+@media (max-width: 1023px) {
+  .pokemon-game-container p {
+    max-width: initial;
+    padding: 0 15px;
+  }
+  .dead-game-container img,
+  .end-game-container img {
+    height: 310px;
+    width: 92%;
+  }
+  .pokemonCounter span {
+    font-size: 18px;
+    padding: 10px;
+    line-height: 25px;
+  }
+  .pokemonCounter span b {
+    font-size: 28px;
+  }
+}
 </style>
