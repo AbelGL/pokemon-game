@@ -1,37 +1,46 @@
 <template>
   <div>
-    <div class="end-game-container" v-if="endGame">
-      <h1>Enhorabuena has ganado el juego!</h1>
-      <button
-        class="reset-button end-game"
-        @click="resetGame"
-        style="margin-left: 1rem;"
-      >Reiniciar juego</button>
+    <div v-if="areYouDead" class="dead-game-container">
+      <h1>Lo siento has muerto!</h1>
+      <img src="../assets/dead.gif" alt="Dead" />
+      <button class="reset-button end-game" @click="resetGame">Reiniciar juego</button>
     </div>
-    <div class="pokemon-game-container" v-else>
-      <h1 v-if="!pokemon">Espere porfavor...</h1>
-      <div v-else>
-        <div v-if="!endGame">
-          <h1>¿Quién es este pokémon?</h1>
-          <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-          <PokemonOptions v-if="!optionsClicked" :pokemons="pokemonArr" @selection="checkAnswer" />
-        </div>
-        <template v-if="!endGame" class="fade-in">
-          <h2 v-if="showAnswer">{{message}}</h2>
-          <div class="pokemonCounter" v-if="enableCounter">
-            <div>
-              <span v-if="hitsCount > 0" class="hits-span">
-                <b>{{hitsCount}}</b>
-                <span>Aciertos</span>
-              </span>
-              <span v-if="failsCount > 0" class="fails-span">
-                <b>{{failsCount}}</b>
-                <span>Fallos</span>
-              </span>
-            </div>
+    <div v-else>
+      <div class="end-game-container" v-if="endGame">
+        <h1>Enhorabuena has ganado el juego!</h1>
+        <img src="../assets/happy.gif" alt="Happy" />
+        <button class="reset-button end-game" @click="resetGame">Reiniciar juego</button>
+      </div>
+      <div class="pokemon-game-container" v-else>
+        <h1 v-if="!pokemon">Espere porfavor...</h1>
+        <div v-else>
+          <div v-if="!endGame">
+            <h1>¿QUIÉN ES ESTE POKÉMON?</h1>
+            <p>Tienes 3 intentos, si fallas 3 veces, fin del juego. Si llegas a 50 aciertos ganas!</p>
+            <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
+            <PokemonOptions v-if="!optionsClicked" :pokemons="pokemonArr" @selection="checkAnswer" />
           </div>
-          <button v-if="!endGame && optionsClicked" class="reset-button" @click="nextGame">Siguiente</button>
-        </template>
+          <template v-if="!endGame" class="fade-in">
+            <h2 v-if="showAnswer">{{message}}</h2>
+            <div class="pokemonCounter" v-if="enableCounter">
+              <div>
+                <span v-if="hitsCount > 0" class="hits-span">
+                  <b>{{hitsCount}}</b>
+                  <span>Aciertos</span>
+                </span>
+                <span v-if="failsCount > 0" class="fails-span">
+                  <b>{{failsCount}}</b>
+                  <span>Fallos</span>
+                </span>
+              </div>
+            </div>
+            <button
+              v-if="!endGame && optionsClicked"
+              class="reset-button"
+              @click="nextGame"
+            >Siguiente</button>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +61,7 @@ export default {
     return {
       pokemonArr: [],
       endGame: false,
+      areYouDead: false,
       pokemon: null,
       showPokemon: false,
       showAnswer: false,
@@ -60,7 +70,7 @@ export default {
       failsCount: 0,
       optionsClicked: false,
       enableCounter: false,
-      LIMIT: 100
+      LIMIT: 50
     };
   },
   methods: {
@@ -84,6 +94,9 @@ export default {
       if (this.hitsCount === this.LIMIT) {
         this.endGame = true;
       }
+      if (this.failsCount === 3) {
+        this.areYouDead = true;
+      }
     },
     nextGame() {
       this.showPokemon = false;
@@ -104,6 +117,7 @@ export default {
       this.hitsCount = 0;
       this.failsCount = 0;
       this.endGame = false;
+      this.areYouDead = false;
       this.mixPokemonArray();
     }
   },
@@ -126,6 +140,33 @@ export default {
   cursor: pointer;
 }
 
+.pokemon-game-container p {
+  max-width: 488px;
+  margin: 0 auto;
+  font-size: 13px;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+
+.dead-game-container,
+.end-game-container {
+  margin-top: 100px;
+  overflow: hidden;
+}
+
+.dead-game-container img,
+.end-game-container img {
+  border-radius: 50%;
+  height: 400px;
+  width: 450px;
+}
+
+.dead-game-container .reset-button,
+.end-game-container .reset-button {
+  margin: 10px auto;
+  display: block;
+}
+
 .end-game {
   background-color: #ed0051;
 }
@@ -141,11 +182,6 @@ export default {
 .happyFace img,
 .sadFace img {
   width: 100px;
-}
-
-.pokemonCounter {
-  padding: 20px;
-  border-radius: 40px;
 }
 
 .pokemonCounter > div {

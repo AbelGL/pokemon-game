@@ -22,12 +22,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 150px;
+  margin-top: 70px;
   max-width: 1200px;
 }
 html {
-  background: url(../src/assets/pokemon-background.png)
-    no-repeat center center fixed;
+  background: url(http://localhost:8080/img/pokemon-background.d86d2d1c.png)
+    no-repeat center bottom fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

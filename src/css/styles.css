@@ -1,4 +1,47 @@
+@font-face {
+    font-family: "Solid-Pokemon";
+    src: url("../assets/Fonts/pokemon/pokemon-solid.ttf");
+}
+
+@font-face {
+    font-family: "Hollow-Pokemon";
+    src: url("../assets/Fonts/pokemon/pokemon-hollow.ttf");
+}
+
 html,
 body {
     margin: 0px;
+}
+
+h1 {
+    font-family: "Hollow-Pokemon";
+    letter-spacing: 3px;
+    font-size: 40px;
+    margin-bottom: 0px;
+}
+
+h2 {
+    font-family: "Hollow-Pokemon";
+    letter-spacing: 3px;
+    font-size: 25px;
+    margin: 0;
+}
+
+p,
+span {
+    font-family: "Solid-Pokemon";
+    font-weight: normal;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+ul li {
+    font-family: "Solid-Pokemon";
+    letter-spacing: 5px;
+    font-weight: lighter;
+}
+
+button {
+    font-family: "Hollow-Pokemon";
+    letter-spacing: 3px;
 }
