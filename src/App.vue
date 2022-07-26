@@ -41,10 +41,10 @@ html {
     background-size: cover;
   }
   h1 {
-    font-size: 28px;
+    font-size: 28px !important;
     line-height: 45px;
     padding: 0 15px;
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
 }
 </style>

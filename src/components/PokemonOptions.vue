@@ -6,7 +6,9 @@
         v-for="pokemon in pokemons"
         :key="pokemon.id"
         @click="$emit('selection', pokemon.id)"
-      >{{pokemon.name}}</li>
+      >
+        <span>{{pokemon.name}}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -32,14 +34,9 @@ ul {
 }
 li {
   background-color: white;
-  border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   cursor: pointer;
   margin-bottom: 10px;
-}
-
-li:hover {
-  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .options-container {
@@ -49,37 +46,53 @@ li:hover {
 
 .option-item {
   box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 2px solid #35495e;
-  border-radius: 21px;
   cursor: pointer;
   align-self: center;
   font-size: 1rem;
   line-height: 1;
-  margin: 20px;
+  margin: 10px;
   padding: 0px 20px;
   text-decoration: none;
   text-align: center;
+  border: 3px solid #50514f;
   text-transform: uppercase;
-  background-color: #000000b3;
   display: inline;
-  color: #fff;
+  position: relative;
+  border-radius: 5px;
+}
+
+.option-item::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.25s;
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.option-item::after {
+  top: 50%;
+  background: #fff;
 }
 
 .option-item {
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 }
 
-.option-item:hover,
-.option-item:focus {
-  color: #fff;
-  outline: 0;
+.option-item span {
+  font-size: 1rem;
+  transition: color 0.5s 0.25s;
+  display: inline-block;
+  position: relative;
+  z-index: 999;
 }
 
 .option-item:hover {
-  box-shadow: 0 0 40px 40px #35495e inset;
+  top: -10px;
+  transition: top ease 0.5s;
 }
 @media (max-width: 1023px) {
   ul {
@@ -89,8 +102,10 @@ li:hover {
     display: inline-block;
     margin: 7px;
     padding: 15px;
-    width: 33%;
     font-size: 0.6rem;
+  }
+  .option-item span {
+    font-size: 0.7rem;
   }
 }
 </style>

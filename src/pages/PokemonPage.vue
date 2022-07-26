@@ -128,6 +128,12 @@ export default {
 </script>
 
 <style scoped>
+.pokemon-game-container h1,
+.dead-game-container h1,
+.end-game-container h1,
+h2 {
+  text-shadow: -1px 1px 3px #2c3e50;
+}
 .reset-button {
   color: #fff;
   background-color: #42b883;
@@ -165,10 +171,11 @@ export default {
 .end-game-container .reset-button {
   margin: 10px auto;
   display: block;
+  margin-top: 30px;
 }
 
 .end-game {
-  background-color: #ed0051;
+  background-color: #ef594f;
 }
 
 .hits-span b {
@@ -176,7 +183,7 @@ export default {
 }
 
 .fails-span b {
-  color: red;
+  color: #ef594f;
 }
 
 .happyFace img,
